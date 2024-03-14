@@ -1,0 +1,33 @@
+# Versão do Docker-compose
+version: '3.9'
+
+# Containers
+services:
+  # Container que vai comportar o app django
+  djangoapp:
+    container_name: djangoapp
+    # Caminho do dockerfile que será utilizado para buildar o container
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    # Mapeamento de portas
+    ports:
+      - 8000:8000
+    # Mapeamento de volumes
+    volumes:
+      - ./djangoapp:/djangoapp
+      - ./data/web/static:/data/web/static
+      - ./data/web/media:/data/web/media
+
+    env_file:
+      - ./dotenv_files/.env
+    depends_on:
+      - psql
+  # Container que vai comportar o banco de dados
+  psql:
+    container_name: psql
+    image: postgres:13-alpine
+    volumes:
+      - ./data/postgres/data:/var/lib/postgresql/data
+    env_file:
+      - ./dotenv_files/.env
