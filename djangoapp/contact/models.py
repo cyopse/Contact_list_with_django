@@ -6,7 +6,9 @@ from django.contrib.auth.models import User
 
 
 class Category(models.Model):
+    """Class representing a category of contacts"""
     class Meta:
+        """Just modifying the verbose plural"""
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
 
@@ -17,6 +19,7 @@ class Category(models.Model):
 
 
 class Contact(models.Model):
+    """Class representing a contact"""
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50, blank=True)
     phone = models.CharField(max_length=50)
